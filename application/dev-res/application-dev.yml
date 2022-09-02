@@ -1,0 +1,30 @@
+micronaut:
+  server:
+    port: 9000
+  application:
+    name: blog-service
+  endpoints:
+    routes:
+      enabled: Boolean
+      sensitive: Boolean
+
+  #tag::datasource[]
+  datasources:
+    default:
+      dialect: MYSQL
+      driverClassName: ${JDBC_DRIVER:com.mysql.cj.jdbc.Driver}
+  #end::datasource[]
+---
+  #tag::flyway[]
+  flyway:
+    datasources:
+      default:
+        enabled: true # <1>
+  #end::flyway[]
+
+## enable watch and stop server when files changes.
+  io:
+    watch:
+      enabled: true
+      paths: src/,res/,../connector/db/src,../core/src
+      restart: true
